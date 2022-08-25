@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { memo } from 'react';
 import styled from 'styled-components';
 
@@ -53,14 +54,12 @@ const RadioWrapper = styled.label`
   }
 `;
 
-const CustomRadio = ({ label, ...restProps }) => {
-  return (
-    <RadioWrapper htmlFor={restProps.id}>
-      {label}
-      <input {...restProps} type="radio" />
-      <span />
-    </RadioWrapper>
-  );
-};
+const CustomRadio = ({ label, ...restProps }) => (
+  <RadioWrapper htmlFor={restProps.id}>
+    {label}
+    <input {...restProps} type="radio" />
+    <span />
+  </RadioWrapper>
+);
 
 export default memo(CustomRadio);

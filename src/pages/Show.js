@@ -17,7 +17,13 @@ const Show = () => {
   }
 
   if (error) {
-    return <div>Error occured: {error}</div>;
+    return (
+      <div>
+        Error occured:
+        {' '}
+        {error}
+      </div>
+    );
   }
 
   return (

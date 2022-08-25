@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TitleWrapper = styled.div`
+const TitleWrapper = styled.div`
   text-align: center;
   margin: 0 0 40px;
 
@@ -16,3 +16,5 @@ export const TitleWrapper = styled.div`
     margin: 0;
   }
 `;
+
+export default TitleWrapper;

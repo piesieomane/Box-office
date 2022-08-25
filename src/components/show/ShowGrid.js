@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback } from 'react';
 import ShowCard from './ShowCard';
 

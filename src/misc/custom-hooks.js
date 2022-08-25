@@ -1,5 +1,7 @@
-import { useReducer, useEffect, useState, useRef, useCallback } from 'react';
-import { apiGet } from './config';
+import {
+  useReducer, useEffect, useState, useRef, useCallback,
+} from 'react';
+import apiGet from './config';
 
 function showsReducer(prevState, action) {
   switch (action.type) {
@@ -8,7 +10,7 @@ function showsReducer(prevState, action) {
     }
 
     case 'REMOVE': {
-      return prevState.filter(showId => showId !== action.showId);
+      return prevState.filter((showId) => showId !== action.showId);
     }
 
     default:
@@ -17,7 +19,7 @@ function showsReducer(prevState, action) {
 }
 
 function usePersistedReducer(reducer, initialState, key) {
-  const [state, dispatch] = useReducer(reducer, initialState, initial => {
+  const [state, dispatch] = useReducer(reducer, initialState, (initial) => {
     const persisted = localStorage.getItem(key);
 
     return persisted ? JSON.parse(persisted) : initial;
@@ -42,11 +44,11 @@ export function useLastQuery(key = 'lastQuery') {
   });
 
   const setPersistedInput = useCallback(
-    newState => {
+    (newState) => {
       setInput(newState);
       sessionStorage.setItem(key, JSON.stringify(newState));
     },
-    [key]
+    [key],
   );
 
   return [input, setPersistedInput];
@@ -78,12 +80,12 @@ export function useShow(showId) {
     let isMounted = true;
 
     apiGet(`/shows/${showId}?embed[]=seasons&embed[]=cast`)
-      .then(results => {
+      .then((results) => {
         if (isMounted) {
           dispatch({ type: 'FETCH_SUCCESS', show: results });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         if (isMounted) {
           dispatch({ type: 'FETCH_FAILED', error: err.message });
         }
@@ -109,7 +111,7 @@ export function useWhyDidYouUpdate(name, props) {
       // Use this object to keep track of changed props
       const changesObj = {};
       // Iterate through keys
-      allKeys.forEach(key => {
+      allKeys.forEach((key) => {
         // If previous is different from current
         if (previousProps.current[key] !== props[key]) {
           // Add to changesObj

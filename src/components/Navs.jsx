@@ -14,7 +14,7 @@ const Navs = () => {
   return (
     <div>
       <NavList>
-        {LINKS.map(item => (
+        {LINKS.map((item) => (
           <li key={item.to}>
             <LinkStyled
               to={item.to}
