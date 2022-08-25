@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CastList = styled.div`
+const CastList = styled.div`
   display: flex;
   flex-wrap: wrap;
 
@@ -36,3 +36,5 @@ export const CastList = styled.div`
     }
   }
 `;
+
+export default CastList;

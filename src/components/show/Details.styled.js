@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DetailsWrapper = styled.div`
+const DetailsWrapper = styled.div`
   p {
     margin: 5px 0;
 
@@ -9,3 +9,5 @@ export const DetailsWrapper = styled.div`
     }
   }
 `;
+
+export default DetailsWrapper;
