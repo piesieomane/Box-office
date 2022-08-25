@@ -18,24 +18,22 @@ const ShowGrid = ({ data }) => {
         dispatchStarred({ type: 'ADD', showId });
       }
     },
-    [dispatchStarred]
+    [dispatchStarred],
   );
 
   return (
     <FlexGrid>
-      {data.map(({ show }) => {
-        return (
-          <ShowCard
-            key={show.id}
-            id={show.id}
-            name={show.name}
-            image={show.image ? show.image.medium : IMAGE_NOT_FOUND}
-            summary={show.summary}
-            onStarClick={onStarClick}
-            isStarred={starredShows.includes(show.id)}
-          />
-        );
-      })}
+      {data.map(({ show }) => (
+        <ShowCard
+          key={show.id}
+          id={show.id}
+          name={show.name}
+          image={show.image ? show.image.medium : IMAGE_NOT_FOUND}
+          summary={show.summary}
+          onStarClick={onStarClick}
+          isStarred={starredShows.includes(show.id)}
+        />
+      ))}
     </FlexGrid>
   );
 };
