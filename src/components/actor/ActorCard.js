@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { StyledActorCard } from './ActorCard.styled';
 
 const ActorCard = ({
@@ -23,5 +24,4 @@ const ActorCard = ({
     <p className="deathday">{deathday ? `Died ${deathday}` : 'Alive'}</p>
   </StyledActorCard>
 );
-
 export default ActorCard;
