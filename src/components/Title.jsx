@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { TitleWrapper } from './Title.styled';
+import TitleWrapper from './Title.styled';
 
 const Title = ({ title, subtitle }) => (
   <TitleWrapper>

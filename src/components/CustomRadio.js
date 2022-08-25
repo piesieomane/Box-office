@@ -25,13 +25,13 @@ const RadioWrapper = styled.label`
     height: 16px;
     width: 16px;
     background-color: #fff;
-    border: 2px solid ${({ theme }) => theme.mainColors.blue};
+    border: 2px solid red;
     border-radius: 50%;
   }
 
   input:checked ~ span {
     background-color: #fff;
-    border: 2px solid ${({ theme }) => theme.mainColors.blue};
+    border: 2px solid blue:
   }
 
   span:after {
@@ -50,7 +50,7 @@ const RadioWrapper = styled.label`
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.mainColors.blue};
+    background: blue;
   }
 `;
 
