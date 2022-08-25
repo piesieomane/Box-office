@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-// import { SearchCard } from '../styled';
-import { StyledShowCard } from './ShowCard.styled';
+
+import StyledShowCard from './ShowCard.styled';
+import { Star } from '../styled';
 
 const ShowCard = ({
-  id, image, name, summary,
+  id, image, name, summary, onStarClick, isStarred,
 }) => {
   const summaryAsText = summary
     ? `${summary.split(' ').slice(0, 10).join(' ').replace(/<.+?>/g, '')}...`
@@ -22,10 +23,12 @@ const ShowCard = ({
 
       <div className="btns">
         <Link to={`/show/${id}`}>Read more</Link>
-        <button type="button">Star me</button>
+        <button type="button" onClick={() => onStarClick(id, isStarred)}>
+          <Star active={isStarred} />
+        </button>
       </div>
     </StyledShowCard>
   );
 };
 
-export default ShowCard;
+export default memo(ShowCard);

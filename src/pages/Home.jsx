@@ -1,88 +1,99 @@
-/* eslint-disable */
-import React, { useState } from 'react';
-import ActorGrid from '../components/actor/ActorGrid';
+import React, { useState, useCallback } from 'react';
 import MainPageLayout from '../components/MainPageLayout';
-import ShowGrid from '../components/show/ShowGrid';
 import apiGet from '../misc/config';
+import ShowGrid from '../components/show/ShowGrid';
+import ActorGrid from '../components/actor/ActorGrid';
+import { useLastQuery } from '../misc/custom-hooks';
+import {
+  SearchInput,
+  RadioInputsWrapper,
+  SearchButtonWrapper,
+} from './Home.styled';
+import CustomRadio from '../components/CustomRadio';
+
+const renderResults = (results) => {
+  if (results && results.length === 0) {
+    return <div>No results</div>;
+  }
+
+  if (results && results.length > 0) {
+    return results[0].show ? (
+      <ShowGrid data={results} />
+    ) : (
+      <ActorGrid data={results} />
+    );
+  }
+
+  return null;
+};
 
 const Home = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useLastQuery();
   const [results, setResults] = useState(null);
   const [searchOption, setSearchOption] = useState('shows');
 
   const isShowsSearch = searchOption === 'shows';
-
-  const onInputChange = e => {
-    setInput(e.target.value);
-  };
-
   const onSearch = () => {
-    // https://api.tvmaze.com/search/shows?q=girls
-    apiGet(`/search/${searchOption}?q=${input}`).then(data => {
-      setResults(data);
-      console.log(data);
+    apiGet(`/search/${searchOption}?q=${input}`).then((result) => {
+      setResults(result);
     });
   };
 
-  const onKeyDown = e => {
-    if (e.keyCode === 13) {
+  const onInputChange = useCallback(
+    (ev) => {
+      setInput(ev.target.value);
+    },
+    [setInput],
+  );
+
+  const onKeyDown = (ev) => {
+    if (ev.keyCode === 13) {
       onSearch();
     }
   };
 
-  const onRadioChange = e => {
-    setSearchOption(e.target.value);
-  };
-
-  const renderResults = () => {
-    if (results && results.length === 0) {
-      return <div>No results</div>;
-    }
-    if (results && results.length > 0) {
-      return results[0].show ? (
-        <ShowGrid data={results} />
-      ) : (
-        <ActorGrid data={results} />
-      );
-    }
-  };
+  const onRadioChange = useCallback((ev) => {
+    setSearchOption(ev.target.value);
+  }, []);
 
   return (
     <MainPageLayout>
-      <input
+      <SearchInput
         type="text"
+        placeholder="Search for something"
         onChange={onInputChange}
         onKeyDown={onKeyDown}
-        placeholder="Search for something"
         value={input}
       />
 
-      <label htmlFor="shows-search">
-        Shows
-        <input
-          type="radio"
-          id="shows-search"
-          value="shows"
-          checked={isShowsSearch}
-          onChange={onRadioChange}
-        />
-      </label>
+      <RadioInputsWrapper>
+        <div>
+          <CustomRadio
+            label="Shows"
+            id="shows-search"
+            value="shows"
+            checked={isShowsSearch}
+            onChange={onRadioChange}
+          />
+        </div>
 
-      <label htmlFor="actors-search">
-        Actors
-        <input
-          type="radio"
-          id="actors-search"
-          value="people"
-          checked={!isShowsSearch}
-          onChange={onRadioChange}
-        />
-      </label>
+        <div>
+          <CustomRadio
+            label="Actors"
+            id="actors-search"
+            value="people"
+            checked={!isShowsSearch}
+            onChange={onRadioChange}
+          />
+        </div>
+      </RadioInputsWrapper>
 
-      <button type="button" onClick={onSearch}>
-        Search
-      </button>
-      {renderResults()}
+      <SearchButtonWrapper>
+        <button type="button" onClick={onSearch}>
+          Search
+        </button>
+      </SearchButtonWrapper>
+      {renderResults(results)}
     </MainPageLayout>
   );
 };
